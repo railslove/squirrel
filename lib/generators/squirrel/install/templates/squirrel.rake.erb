@@ -1,0 +1,25 @@
+namespace :squirrel do
+  desc "Explaining what the task does"
+  task :ship => :environment do
+    Squirrel.ship(:environment => ENV['ENVIRONMENT'],
+                  :head_long   => ENV['HEAD_LONG'],
+                  :user  => ENV['USER'])
+  end
+
+  namespace :heroku do
+    desc "Install Heroku deploy notifications addon"
+    task :add_notification => :environment do
+      heroku_api_key = `heroku config:get SQUIRREL_API_KEY`.strip
+      heroku_rack_env = `heroku config:get RACK_ENV`.strip || "production"
+
+      command = %Q(heroku addons:add deployhooks:http --url="https://squirreldeploy.herokuapp.com/v1/release?api_key=#{heroku_api_key}&environment=#{heroku_rack_env}")
+
+      if heroku_api_key.present?
+        puts "\nRunning:\n#{command}\n"
+        puts `#{command}`
+      else
+        puts "\nMissing SQUIRREL_API_KEY"
+      end
+    end
+  end
+end

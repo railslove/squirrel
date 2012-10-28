@@ -1,0 +1,10 @@
+Description:
+    This will generate a Rake task and Initializer that will help to notify Squirrel
+    once a deploy is done.
+
+Example:
+    rails generate squirrel:install
+
+    This will create:
+        lib/tasks/sqirrel.rake
+        config/initalizers/sqirrel.rb
