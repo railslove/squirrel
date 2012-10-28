@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency "activesupport", "~> 3.2.0"
   s.add_dependency "httparty"
+  s.add_development_dependency "rake"
 end
